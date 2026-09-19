@@ -1,0 +1,4 @@
+[submodule "plugins/omarchy/hermea"]
+	path = plugins/omarchy/hermea
+	url = https://github.com/aasmpro/hermea-omarchy.git
+	branch = master

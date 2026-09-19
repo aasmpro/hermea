@@ -11,14 +11,16 @@ features and platform integrations later.
 
 ```text
 hermea/
-├── plugins/omarchy/hermea/   # Standalone Omarchy bar plugin
+├── plugins/omarchy/hermea/   # Git submodule: standalone Omarchy plugin
 ├── tools/                    # Validation and packaging commands
 ├── README.md                 # Orchestrator project documentation
 └── LICENSE
 ```
 
-The Omarchy plugin owns its manifest, QML entry points, Hermes adapter, browser
-launcher, tests, README, and license inside `plugins/omarchy/hermea/`.
+The Omarchy plugin is maintained in the separate
+[`aasmpro/hermea-omarchy`](https://github.com/aasmpro/hermea-omarchy)
+repository and linked here as a Git submodule. It owns its manifest, QML entry
+points, Hermes adapter, browser launcher, tests, README, and license.
 Future Hermes features can be added under `features/`, and other platform
 integrations can use `plugins/<platform>/` without adding platform code to the
 project root.
@@ -54,37 +56,38 @@ profile. The first panel open is safe when Hermes is missing or uninitialized:
 it shows a setup state and enables profile actions after a later refresh finds a
 usable profile.
 
-### Install from a standalone plugin repository
+### Install the published Omarchy plugin
 
-The monorepo itself is an orchestrator repository. Omarchy plugin installation
-expects the plugin manifest at the repository root, so publish or use the
-standalone output created by the packaging command:
+Install the standalone plugin directly from its public repository:
+
+```bash
+omarchy plugin add https://github.com/aasmpro/hermea-omarchy.git --enable
+omarchy bar move io.github.aasmpro.hermea --section right
+```
+
+### Work from the Hermea source checkout
+
+```bash
+git clone --recurse-submodules https://github.com/aasmpro/hermea.git
+cd hermea
+./tools/validate-omarchy-plugin.sh
+```
+
+For an existing clone, initialize or update the plugin submodule:
+
+```bash
+git submodule update --init --recursive
+```
+
+The plugin can then be installed locally from the checked-out submodule:
 
 ```bash
 ./tools/package-omarchy-plugin.sh
-```
-
-For a public subtree repository, install it with:
-
-```bash
-omarchy plugin add <plugin-repository-url> --enable
-```
-
-Then place it in the bar if necessary:
-
-```bash
-omarchy bar move hermea --section right
-```
-
-### Install from a local checkout
-
-```bash
-./tools/package-omarchy-plugin.sh
-PLUGIN_DIR="$HOME/.config/omarchy/plugins/hermea"
+PLUGIN_DIR="$HOME/.config/omarchy/plugins/io.github.aasmpro.hermea"
 rm -rf "$PLUGIN_DIR"
 mkdir -p "$PLUGIN_DIR"
 cp -a .dist/omarchy/hermea/. "$PLUGIN_DIR/"
-omarchy bar move hermea --section right
+omarchy bar move io.github.aasmpro.hermea --section right
 omarchy-shell shell rescanPlugins
 ```
 
@@ -100,7 +103,7 @@ plugin update flow or reinstall the plugin from its repository.
 Remove the plugin with:
 
 ```bash
-omarchy plugin remove hermea
+omarchy plugin remove io.github.aasmpro.hermea
 ```
 
 Removing Hermea does not delete Hermes profiles, model configuration, sessions,
@@ -114,20 +117,20 @@ or profile icons.
 
 ## Build a standalone Omarchy plugin package
 
-Omarchy expects a plugin repository to contain `manifest.json` at its root. The
-monorepo keeps that manifest inside the platform integration, so package the
-plugin before installing or publishing it:
+The plugin is already available as a standalone repository. The packaging
+command remains useful for local testing and for checking the exact files that
+the submodule provides:
 
 ```bash
 ./tools/package-omarchy-plugin.sh
 ```
 
-The standalone package is written to `.dist/omarchy/hermea/`. It can be copied
-to `~/.config/omarchy/plugins/hermea/` for local testing or used as the source
-for a subtree-split public plugin repository.
+The package is written to `.dist/omarchy/hermea/`. The source of truth for
+published Omarchy installs is
+[`aasmpro/hermea-omarchy`](https://github.com/aasmpro/hermea-omarchy).
 
-See [the Omarchy plugin documentation](plugins/omarchy/hermea/README.md) for
-plugin settings, runtime dependencies, and troubleshooting.
+See the [standalone plugin documentation](https://github.com/aasmpro/hermea-omarchy/blob/master/README.md)
+for plugin settings, runtime dependencies, and troubleshooting.
 
 ## License
 

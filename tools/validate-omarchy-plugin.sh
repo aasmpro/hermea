@@ -4,6 +4,11 @@ set -euo pipefail
 root_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 plugin_dir="$root_dir/plugins/omarchy/hermea"
 
+if [ ! -f "$plugin_dir/manifest.json" ]; then
+  echo "Omarchy plugin submodule is not initialized: run git submodule update --init --recursive" >&2
+  exit 1
+fi
+
 jq empty "$plugin_dir/manifest.json"
 bash -n "$plugin_dir/open-dashboard.sh"
 omarchy plugin validate "$plugin_dir"
