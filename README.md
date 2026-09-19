@@ -62,7 +62,7 @@ Install the standalone plugin directly from its public repository:
 
 ```bash
 omarchy plugin add https://github.com/aasmpro/hermea-omarchy.git --enable
-omarchy bar move io.github.aasmpro.hermea --section right
+omarchy bar move hermea --section right
 ```
 
 ### Work from the Hermea source checkout
@@ -83,11 +83,11 @@ The plugin can then be installed locally from the checked-out submodule:
 
 ```bash
 ./tools/package-omarchy-plugin.sh
-PLUGIN_DIR="$HOME/.config/omarchy/plugins/io.github.aasmpro.hermea"
+PLUGIN_DIR="$HOME/.config/omarchy/plugins/hermea"
 rm -rf "$PLUGIN_DIR"
 mkdir -p "$PLUGIN_DIR"
 cp -a .dist/omarchy/hermea/. "$PLUGIN_DIR/"
-omarchy bar move io.github.aasmpro.hermea --section right
+omarchy bar move hermea --section right
 omarchy-shell shell rescanPlugins
 ```
 
@@ -103,7 +103,7 @@ plugin update flow or reinstall the plugin from its repository.
 Remove the plugin with:
 
 ```bash
-omarchy plugin remove io.github.aasmpro.hermea
+omarchy plugin remove hermea
 ```
 
 Removing Hermea does not delete Hermes profiles, model configuration, sessions,

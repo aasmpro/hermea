@@ -33,7 +33,7 @@ Omarchy shell imports.
 
 ## Change and release rules
 
-- Preserve the public plugin contract and the `io.github.aasmpro.hermea`
+- Preserve the public plugin contract and the `hermea`
   plugin ID.
 - Keep the plugin README and root README aligned with the actual repository
   layout and install commands.
@@ -44,4 +44,3 @@ Omarchy shell imports.
 ```bash
 python3 -B -m unittest discover -s plugins/omarchy/hermea/tests -v
 ```
-
