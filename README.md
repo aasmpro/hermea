@@ -1,4 +1,4 @@
-# Hermea
+# Hermea (0.1.0)
 
 Hermea is a Hermes orchestrator project for bringing Hermes profiles, models,
 sessions, and future agent features together across desktop platforms.
