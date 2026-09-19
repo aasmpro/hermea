@@ -5,6 +5,11 @@ root_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
 plugin_dir="$root_dir/plugins/omarchy/hermea"
 output_dir="$root_dir/.dist/omarchy/hermea"
 
+if [ ! -f "$plugin_dir/manifest.json" ]; then
+  echo "Omarchy plugin submodule is not initialized: run git submodule update --init --recursive" >&2
+  exit 1
+fi
+
 rm -rf "$output_dir"
 mkdir -p "$output_dir"
 tar --exclude='__pycache__' --exclude='*.pyc' --exclude='.git' \
